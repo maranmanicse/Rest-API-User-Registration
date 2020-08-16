@@ -50,14 +50,14 @@ class UserController extends Controller
             'state_id' => 'required'
         ]);
         if ($validator->fails()) { 
-                    return response()->json(['status'=>'FAILED','data'=>$validator->errors()], 401);            
+                    return response()->json(['status'=>'FAILED','data'=>$validator->errors()]);            
                 }
         $input = $request->all(); 
                 $input['password'] = bcrypt($input['password']); 
                 $user = User::create($input); 
                 $data['token'] =  $user->createToken('MyApp')-> accessToken; 
                 $data['name'] =  $user->name;
-        return response()->json(['status'=>'FAILED','data'=>$data], $this-> successStatus); 
+        return response()->json(['status'=>'SUCCESS','data'=>$data]); 
     }
 
     /**
